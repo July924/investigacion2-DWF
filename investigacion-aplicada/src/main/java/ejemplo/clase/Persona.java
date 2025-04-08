@@ -8,4 +8,3 @@ public class Persona extends PanacheEntity {
     public String nombre;
     public String apellido;
 }
-a¿
