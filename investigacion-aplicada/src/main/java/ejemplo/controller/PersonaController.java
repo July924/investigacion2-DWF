@@ -1,17 +1,16 @@
 package ejemplo.controller;
 
-
+import ejemplo.clase.Persona;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
 import java.util.List;
 
 @Path("/api/personas")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class PersonaResource {
+public class PersonaController {
 
     // GET - Todas las personas
     @GET
@@ -41,7 +40,7 @@ public class PersonaResource {
     public Persona actualizar(@PathParam("id") Long id, Persona nuevaPersona) {
         Persona persona = Persona.findById(id);
         if (persona == null) {
-            throw new NotFoundException();
+            throw new NotFoundException("Persona no encontrada.");
         }
         persona.nombre = nuevaPersona.nombre;
         persona.apellido = nuevaPersona.apellido;
@@ -55,8 +54,8 @@ public class PersonaResource {
     public Response eliminar(@PathParam("id") Long id) {
         boolean eliminado = Persona.deleteById(id);
         if (!eliminado) {
-            throw new NotFoundException();
+            throw new NotFoundException("Persona no encontrada.");
         }
         return Response.noContent().build();
-    }
+    }
 }
